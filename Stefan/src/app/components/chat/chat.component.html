@@ -1,0 +1,7 @@
+<div class="chat-container">
+    <textarea id="chatBox" readonly rows="10" [(ngModel)]="chatContent"></textarea>
+    <div>
+      <input type="text" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht" (keydown)="handleKeyDown($event)" />
+      <button (click)="sendMessage()">Senden</button>
+    </div>
+  </div>

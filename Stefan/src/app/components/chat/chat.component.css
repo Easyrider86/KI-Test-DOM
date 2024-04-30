@@ -1,0 +1,24 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  textarea {
+    margin-bottom: 10px;
+    resize: none; /* Verhindert das Größenändern des Textbereichs */
+  }
+  
+  input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  button {
+    width: 80px;
+  }
+  
+  div {
+    display: flex;
+    align-items: center;
+  }
