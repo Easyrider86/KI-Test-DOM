@@ -3,16 +3,18 @@ import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
 
 @Component({
-  selector: 'app-chat',
+  selector: 'chat-component',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
+  
   chatContent: string = '';
   inputText: string = '';
 
-  constructor(private chatService: ChatService) { }
-
+  constructor(private chatService: ChatService) { 
+    
+  }
 
   handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !event.shiftKey) {

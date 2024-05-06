@@ -17,7 +17,7 @@ import { ChatCompletion } from '../server/ChatCompletion';
       console.log("Sending following text to gpt: " + message);
 
       const headers = {
-        'Authorization': `Bearer LOL; STFU`,
+        'Authorization': `Bearer TODO`,
         'Content-Type': 'application/json'
       };
       const body = {

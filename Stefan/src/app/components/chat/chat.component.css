@@ -12,6 +12,7 @@
   input[type="text"] {
     flex-grow: 1;
     margin-right: 10px;
+    height: 36px;
   }
   
   button {
