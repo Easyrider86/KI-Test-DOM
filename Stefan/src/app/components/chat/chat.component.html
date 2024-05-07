@@ -1,8 +1,9 @@
-<h3>ChatGPT 4</h3>
+<h3>ChatGPT Konsole</h3>
 <div class="chat-container">
-  <textarea id="chatBox" class="inputBackground" readonly rows="10" [(ngModel)]="chatContent"></textarea>
+  <chat-console id="chat-console" class="chat-console"></chat-console>
   <div>
-    <input type="text" class="inputBackground" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht" (keydown)="handleKeyDown($event)" />
+    <input type="text" class="inputBackground" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht"
+      (keydown)="handleKeyDown($event)" />
     <button mat-raised-button color="primary" class="button" (click)="sendMessage()">Senden</button>
   </div>
 </div>

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
+import { ChatConsoleComponent } from '../chat-console/chat-console.component';
 
 @Component({
   selector: 'chat-component',
@@ -8,12 +9,15 @@ import { ChatCompletion } from '../../server/ChatCompletion';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  
+
+  @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
+
+  isLoading: boolean = true;
   chatContent: string = '';
   inputText: string = '';
 
-  constructor(private chatService: ChatService) { 
-    
+  constructor(private chatService: ChatService) {
+
   }
 
   handleKeyDown(event: KeyboardEvent): void {
@@ -26,14 +30,19 @@ export class ChatComponent {
 
   sendMessage(): void {
 
+    this.isLoading = true;
+
     this.chatService.sendMessage(this.inputText).subscribe({
       next: (completion: ChatCompletion) => {
         console.log("Received completion:", completion);
-        this.updateChat(completion.choices[0].message.content);
+        this.chatConsoleComponente.updateChat("Chat-GPT", completion.choices[0].message.content)
+        this.isLoading = false;
       },
       error: (error) => {
         console.error("Error sending message:", error);
-      }
+        this.isLoading = false;
+      },
+      
     });
 
     this.clearInput();
@@ -41,7 +50,7 @@ export class ChatComponent {
 
   clearInput(): void {
     if (this.inputText.trim()) {
-      this.updateChat(this.inputText);
+      this.chatConsoleComponente.updateChat("User", this.inputText)
       this.inputText = ''; // Feld leeren nach dem Senden
     }
   }

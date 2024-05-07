@@ -4,20 +4,37 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ChatGPT_3_5_Turbo } from '../constants/ServerConstants';
 import { ChatCompletion } from '../server/ChatCompletion';
+import { SettingService } from './SettingsService';
+import { ChatGPT_API_KEY } from '../constants/ConfigConstants';
 
 @Injectable({
     providedIn: 'root'
   })
   export class ChatService {
   
-    constructor(private http: HttpClient) { }
+    apiKey = "";
+
+    constructor(private http: HttpClient, private settingService: SettingService) { 
+      console.log("Loading apiKey from settings...");
+      this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
+      console.log("apiKey: " + this.apiKey);
+    }
   
     sendMessage(message: string): Observable<ChatCompletion> {
 
       console.log("Sending following text to gpt: " + message);
 
+      if(this.apiKey == "") {
+        this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
+      }
+
+      if(this.apiKey == "") {
+        console.error("Konnte den API-Key nicht lesen, Funktion wird abgebrochen!");
+        return undefined;
+      }
+
       const headers = {
-        'Authorization': `Bearer TODO`,
+        'Authorization': `Bearer ` + this.apiKey,
         'Content-Type': 'application/json'
       };
       const body = {
