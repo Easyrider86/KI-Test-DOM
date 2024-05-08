@@ -1,5 +1,5 @@
 import { IRun } from './IRun.js'
-import { ASSISTENT_ID } from '../constants/ConfigConstants.js';
+import { ASSISTENT_ID } from '../constants/ConfigConstants';
 
 export class Run implements IRun {
     public async startRun(openAIInstance: any, thread_id: number, message: string) : Promise<String> {

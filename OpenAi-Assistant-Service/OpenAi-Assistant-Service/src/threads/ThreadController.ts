@@ -1,4 +1,4 @@
-import { IThreadController } from './IThreadController.js'
+import { IThreadController } from './IThreadController'
 
 export class Assistant_Thread implements IThreadController {
     public async createThread(openAIInstance: any): Promise<any> {
