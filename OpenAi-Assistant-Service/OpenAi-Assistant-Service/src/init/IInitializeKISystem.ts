@@ -1,3 +1,5 @@
+import { IAIConfiguration } from "../constants/IAIConfiguration";
+
 export interface IInitializeKISystem {
-    createAIInstance(token: String) : Promise<any>
+    createAIInstance(token: IAIConfiguration) : Promise<any>
 }

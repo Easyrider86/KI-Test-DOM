@@ -8,7 +8,7 @@ export class Assistant_Thread implements IThreadController {
         });
     }
 
-    public async getThreads(openAIInstance: any, thread_id: number) : Promise<any> {
+    public async getThread(openAIInstance: any, thread_id: number) : Promise<any> {
         await openAIInstance.beta.threads.retrieve(thread_id).then((result: any) => {
             return result;
         });
