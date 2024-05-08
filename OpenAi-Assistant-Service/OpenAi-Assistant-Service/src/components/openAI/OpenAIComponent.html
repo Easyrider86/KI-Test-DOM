@@ -1,6 +1,8 @@
 <mat-card mat-card-content style="background-color: white" class="pa-2 ma-2">
     <div class="pa-2">
         <p class="mr-2">API-Key:</p>
-        <input type="password" class="inputBackground" [(ngModel)]="apiKey" style="width: 300px" />
+        <input type="password" class="inputBackground" [(ngModel)]="apiKey" placeholder="API Key" style="width: 300px" />
+        <input type="text" class="inputBackground" [(ngModel)]="chatGPT_3_5_Turbo_url" placeholder="ChatGPT_3_5_Turbo URL" style="width: 300px" />
+        <input type="text" class="inputBackground" [(ngModel)]="assistant_url" placeholder="Assistant URL" style="width: 300px" />
     </div>
 </mat-card>

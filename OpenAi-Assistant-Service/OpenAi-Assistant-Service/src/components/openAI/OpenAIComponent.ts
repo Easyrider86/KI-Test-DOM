@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseSettingComponent } from '../base/BaseSettingsComponent';
 import { Setting } from '../../constants/IAIConfiguration';
-import { ChatGPT_API_KEY } from '../../constants/ConfigConstants';
+import { ChatGPT_API_KEY, ChatGPT_3_5_Turbo_DEFAULT_KEY, ASSISTANT_URL_KEY } from '../../constants/OpenAIConfiguration';
 
 @Component({
   selector: 'openai-component',
@@ -12,6 +12,8 @@ import { ChatGPT_API_KEY } from '../../constants/ConfigConstants';
 export class OpenAIComponent extends BaseSettingComponent {
 
   apiKey: string = "";
+  chatGPT_3_5_Turbo_url: string = "";
+  assistant_url: string = "";
 
   constructor(public override router: Router) {
     super(router);
@@ -23,7 +25,12 @@ export class OpenAIComponent extends BaseSettingComponent {
    * @returns Returns the value of the setting as a list.
    */
   override getSettings(): Setting[] {
-    return [new Setting(ChatGPT_API_KEY, this.apiKey)];
+    let result = []
+    result.push(new Setting(ChatGPT_API_KEY, this.apiKey));
+    result.push(new Setting(ChatGPT_3_5_Turbo_DEFAULT_KEY, this.chatGPT_3_5_Turbo_url));
+    result.push(new Setting(ASSISTANT_URL_KEY, this.assistant_url));
+
+    return result;
   }
 
   /**
@@ -35,7 +42,12 @@ export class OpenAIComponent extends BaseSettingComponent {
     settings.forEach(element => {
       if(element.key === ChatGPT_API_KEY)  {
         this.apiKey = element.value;
-        return;
+      }
+      else if(element.key === ASSISTANT_URL_KEY) {
+        this.chatGPT_3_5_Turbo_url = element.value;
+      }
+      else if(element.key === ChatGPT_3_5_Turbo_DEFAULT_KEY) {
+        this.assistant_url = element.value;
       }
     });
   }
