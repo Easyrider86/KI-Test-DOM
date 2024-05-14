@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+body {
+    padding: 10px;
+    /* Fügt einen Abstand von 10px zu allen Seiten hinzu */
+}
+
+.ml-2 {
+    margin-left: 8px;
+}
+
+.ml-5 {
+    margin-left: 20px;
+}
+
+.mr-2 {
+    margin-right: 8px;
+}
+
+.ma-2 {
+    margin: 8px;
+}
+
+.pa-2 {
+    padding: 8px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.inputBackground {
+
+    background-color: lavender !important;
+}
+
+.button {
+    width: 150px !important;
+}

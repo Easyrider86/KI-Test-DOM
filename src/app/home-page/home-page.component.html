@@ -1,0 +1,8 @@
+<!-- home-page.component.html -->
+<header>
+        <h2>D.O.M ChatGPT</h2>
+        <nav *ngIf="showSettingsIcon">
+            <a routerLink="/settings"><i class="fas fa-cog"></i></a>
+        </nav>
+</header>
+<router-outlet></router-outlet>

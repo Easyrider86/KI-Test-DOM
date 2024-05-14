@@ -1,0 +1,11 @@
+<h3>Einstellungen</h3>
+<mat-card mat-card-content style="background-color: white" class="pa-2 ma-2">
+    <div class="pa-2">
+        <p class="mr-2">API-Key:</p>
+        <input type="password" class="inputBackground" [(ngModel)]="apiKey" style="width: 300px" />
+    </div>
+</mat-card>
+<footer class="settings-footer">
+    <button mat-raised-button color="primary" (click)="saveSettings()" class="button mr-2">Speichern</button>
+    <button mat-raised-button color="primary" (click)="cancel()" class="button mr-2">Abbrechen</button>
+</footer>
