@@ -10,27 +10,30 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SettingsComponent } from './components/settings/settings.component'; 
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatConsoleComponent } from './components/chat-console/chat-console.component';
+import { ChatThreadsComponent } from './components/chat-threads/chat-threads.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+
+import { OpenAIModule } from 'open-ai-assistant-service/src/components/openAI/openai.module';
 
 @NgModule({
   declarations: [
     HomePageComponent,
     ChatComponent,
     ChatConsoleComponent,
+    ChatThreadsComponent,
     SettingsComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    HighlightModule
+    HighlightModule,
+    OpenAIModule
   ],
   providers: [
     {

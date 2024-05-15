@@ -2,15 +2,17 @@ import { Component, ViewChild } from '@angular/core';
 import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
 import { ChatConsoleComponent } from '../chat-console/chat-console.component';
+import { ChatThreadsComponent } from '../chat-threads/chat-threads.component';
 
 @Component({
   selector: 'chat-component',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.css', 'chat.component.scss']
 })
 export class ChatComponent {
 
   @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
+  @ViewChild(ChatThreadsComponent)chatThreadsComponent: ChatThreadsComponent;
 
   isLoading: boolean = true;
   chatContent: string = '';

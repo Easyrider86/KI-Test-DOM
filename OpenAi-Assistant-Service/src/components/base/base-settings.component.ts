@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { IAIConfiguration, Setting } from "../../constants/IAIConfiguration";
 
 @Component({
     selector: 'base-setting',
-    templateUrl: './BaseSettingsComponent.html',
-    styleUrls: ['./BaseSettingsComponent.css']
+    templateUrl: './base-settings.component.html',
+    styleUrls: ['./base-settings.component.css']
 })
 export class BaseSettingComponent {
-
-    constructor(public router: Router) { }
   
+    constructor() {}
+
     getSettings(): Setting[] {
         return [];
     }

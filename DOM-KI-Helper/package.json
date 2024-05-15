@@ -26,6 +26,7 @@
     "highlight.js": "^11.9.0",
     "ngx-cookie-service": "^17.1.0",
     "ngx-highlightjs": "^11.0.0-beta.1",
+    "open-ai-assistant-service": "file:../OpenAi-Assistant-Service",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "verify": "^0.1.2",

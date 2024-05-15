@@ -11,7 +11,7 @@ export class ChatConsoleComponent {
 
   constructor() {}
 
-   public updateChat(sender: string, message: string): void {
+  public updateChat(sender: string, message: string): void {
     this.chatContent += sender + ": " + message + "\n";
   }
 }

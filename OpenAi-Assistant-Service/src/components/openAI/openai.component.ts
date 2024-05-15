@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { BaseSettingComponent } from '../base/BaseSettingsComponent';
+import { BaseSettingComponent } from '../base/base-settings.component';
 import { Setting } from '../../constants/IAIConfiguration';
 import { ChatGPT_API_KEY, ChatGPT_3_5_Turbo_DEFAULT_KEY, ASSISTANT_URL_KEY } from '../../constants/OpenAIConfiguration';
 
 @Component({
-  selector: 'openai-component',
-  templateUrl: './OpenAIComponent.html',
-  styleUrls: ['./OpenAIComponent.css']
+  selector: 'app-openai-component',
+  templateUrl: './openai.component.html',
+  styleUrls: ['./openai.component.css']
 })
 export class OpenAIComponent extends BaseSettingComponent {
 
@@ -15,8 +14,8 @@ export class OpenAIComponent extends BaseSettingComponent {
   chatGPT_3_5_Turbo_url: string = "";
   assistant_url: string = "";
 
-  constructor(public override router: Router) {
-    super(router);
+  constructor() {
+    super();
   }
 
   /**
