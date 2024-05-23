@@ -1,9 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@fortawesome/fontawesome-free/css/all.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+header {
+    background-color: white;
+}
 
 body {
-    padding: 10px;
-    /* Fügt einen Abstand von 10px zu allen Seiten hinzu */
+    background-color: lightgray;
 }
 
 .ml-2 {

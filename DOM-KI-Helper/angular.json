@@ -35,6 +35,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "node_modules/bootstrap3/dist/css/bootstrap.min.css",
               "src/styles.css"

@@ -29,6 +29,27 @@ textarea {
   flex-grow: 1;
 }
 
-.chat-console-container {
-  display: flex;
+.row {
+  display: table;
+  width: 100%; /*Optional*/
+  border-spacing: 4px; /*Optional*/
+}
+
+.column {
+  display: table-cell;
+  place-items: center;
+  align-items: center;
+  height: 50em;
+}
+
+.sidebar {
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+  
+  justify-content: left;
+  align-items: center;
+
+  padding-left: 10px;
+
+  width: 20px;
 }

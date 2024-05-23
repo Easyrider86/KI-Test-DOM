@@ -1,3 +1,24 @@
 <div class="chat-thread-container">
-    hello
+    <div class="card flex justify-content-center" style="margin-bottom: 20px;">
+        <p-listbox 
+            class="teststyle"
+            [options]="threads" 
+            [(ngModel)]="selectedThread" 
+            optionLabel="name" 
+            [style]="{'width':'25rem'}"
+            (onChange)="changeThreadMessages()"
+            [listStyle]="{'max-height': '220px'}" />
+    </div>
+    <p-button label="Create New Thread" [rounded]="true" [loading]="loading" (onClick)="showDialog()" [style]="{'width':'25rem', 'color':'black'}" />
 </div>
+
+<p-dialog header="Create Thread" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="threadname" class="font-semibold w-6rem">Thread name:</label>
+        <input type="text" pInputText id="threadname" class="flex-auto" style="width: -moz-available;" autocomplete="off" [(ngModel)]="threadNameInput" />
+    </div>
+    <div class="flex justify-content-end gap-2 dialogButtons" style="margin-top: 20px; color: black;">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button class="ml-2" label="Create" (click)="createThread()" />
+    </div>
+</p-dialog>

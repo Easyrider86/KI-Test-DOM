@@ -15,8 +15,12 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { ListboxModule } from 'primeng/listbox';
+import { ButtonModule } from 'primeng/button';
+import { SidebarModule } from 'primeng/sidebar';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
-import { OpenAIModule } from 'open-ai-assistant-service/src/components/openAI/openai.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,13 @@ import { OpenAIModule } from 'open-ai-assistant-service/src/components/openAI/op
     MatButtonModule,
     MatProgressSpinnerModule,
     HighlightModule,
-    OpenAIModule
+    FormsModule,
+    MatCardModule,
+    ListboxModule,
+    ButtonModule,
+    SidebarModule,
+    DialogModule,
+    InputTextModule
   ],
   providers: [
     {

@@ -1,0 +1,9 @@
+.teststyle >>> .p-listbox {
+    font-size: medium;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.dialogButtons {
+    display: flex;
+    justify-content: right;
+}

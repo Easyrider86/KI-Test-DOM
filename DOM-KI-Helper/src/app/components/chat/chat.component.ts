@@ -7,7 +7,7 @@ import { ChatThreadsComponent } from '../chat-threads/chat-threads.component';
 @Component({
   selector: 'chat-component',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css', 'chat.component.scss']
+  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
 
@@ -17,9 +17,24 @@ export class ChatComponent {
   isLoading: boolean = true;
   chatContent: string = '';
   inputText: string = '';
+  sidebarVisible: boolean = false;
 
   constructor(private chatService: ChatService) {
 
+  }
+
+  changeThread(messages: Array<any>) {
+    this.isLoading = true;
+    this.clearInput();
+    this.chatConsoleComponente.clearChat();
+
+    console.log('GET FROM CHILD', messages);
+
+    for (const message of messages) {
+      this.chatConsoleComponente.updateChat(message.role, message.content[0].text.value);
+    }
+
+    this.isLoading = false;
   }
 
   handleKeyDown(event: KeyboardEvent): void {
@@ -31,6 +46,20 @@ export class ChatComponent {
   }
 
   sendMessage(): void {
+
+    this.isLoading = true;
+
+
+    this.chatThreadsComponent.startRun(this.inputText).then((message) => {
+      this.chatConsoleComponente.updateChat("Chat-GPT", message);
+    });
+
+    this.isLoading = false;
+
+    this.clearInput();
+  }
+
+  sendMessageOld(): void {
 
     this.isLoading = true;
 

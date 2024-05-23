@@ -1,23 +1,20 @@
-<header class="header">
-  <h3>ChatGPT Konsole</h3>
-</header>
-
-<main>
-  <section class="section-chat">
-    <div class="row">
-      <div class="col-1-of-4">
-        <chat-threads></chat-threads>
-      </div>
-      <div class="col-3-of-4">
-        <div class="chat-container">
-          <chat-console id="chat-console" class="chat-console"></chat-console>
-          <div class="chat-input">
-            <input type="text" class="inputBackground" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht"
-              (keydown)="handleKeyDown($event)" />
-            <button mat-raised-button color="primary" class="button" (click)="sendMessage()">Senden</button>
-          </div>
-        </div>
+<main style="background-color: lightgrey;">
+  <div class="row">
+    <div class="column sidebar">
+      <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"/>
+    </div>
+    <div class="column">
+      <h3>ChatGPT Konsole</h3>
+      <chat-console id="chat-console" class="chat-console"></chat-console>
+      <div class="chat-input">
+        <input type="text" class="inputBackground" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht"
+          (keydown)="handleKeyDown($event)" />
+        <button mat-raised-button color="primary" class="button" (click)="sendMessage()">Senden</button>
       </div>
     </div>
-  </section>
+  </div>
 </main>
+
+<p-sidebar [(visible)]="sidebarVisible" [style]="{ width: '30rem' }">
+  <chat-threads (changeThread)="changeThread($event)" />
+</p-sidebar>

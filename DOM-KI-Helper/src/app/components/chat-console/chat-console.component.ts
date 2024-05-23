@@ -14,4 +14,8 @@ export class ChatConsoleComponent {
   public updateChat(sender: string, message: string): void {
     this.chatContent += sender + ": " + message + "\n";
   }
+
+  public clearChat(): void {
+    this.chatContent = '';
+  }
 }
