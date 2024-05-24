@@ -14,6 +14,7 @@ interface Thread {
 })
 export class ChatThreadsComponent {
 
+    // Event for parent component
     @Output() changeThread = new EventEmitter<string>();
 
     threads: Thread[];
@@ -29,6 +30,7 @@ export class ChatThreadsComponent {
     }
 
     constructor(private runService: RunService, private threadService: ThreadService) {
+        // TODO: Currently hardcoded.
         this.threads = [
             { id: 'thread_livlJtNHAnUbT2CIhmo2alCt', name: 'TestThread1' },
             { id: 'thread_LIn2heYoN4APMiU3uBvm1D81', name: 'TestThread2' },

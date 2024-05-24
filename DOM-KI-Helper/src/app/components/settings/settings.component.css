@@ -1,4 +1,16 @@
 .settings-footer {
     display: flex;
     justify-content: end;
-  }
+}
+
+.cancel-btn {
+  color: white !important;
+  background-color: lightgray !important;
+  border-color: lightgray !important;
+}
+
+.save-btn {
+  color: white !important;
+  background-color: red !important;
+  border-color: red !important;
+}

@@ -12,6 +12,15 @@ input[type="text"] {
 
 button {
   width: 80px;
+  color: white !important;
+  background-color: red !important;
+}
+
+p-button >>> button {
+  color: white !important;
+  background-color: red !important;
+  border-color: red !important;
+  margin-left: -2px;
 }
 
 .chat-input {
@@ -39,7 +48,7 @@ textarea {
   display: table-cell;
   place-items: center;
   align-items: center;
-  height: 50em;
+  height: 40em;
 }
 
 .sidebar {

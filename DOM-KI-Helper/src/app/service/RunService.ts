@@ -16,15 +16,22 @@ export class RunService {
         this.createAIInstance(this.apiKey);
     }
 
-    public async createAIInstance(apiKey: string) {
+    private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
         this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
     };
 
+    /**
+     * Get the last messages of a thread by a limit (1 to 100).
+     * 
+     * @param threadId 
+     * @returns messages of a thread
+     */
     public async getThreadMessages(threadId: string) : Promise<any> {
 
         const messages = await this.openai.beta.threads.messages.list(
-            threadId
+            threadId,
+            {limit: 80}
         );
 
         return messages.data.reverse();

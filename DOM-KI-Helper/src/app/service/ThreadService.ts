@@ -16,7 +16,7 @@ export class ThreadService {
         this.createAIInstance(this.apiKey);
     }
 
-    public async createAIInstance(apiKey: string) {
+    private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
         this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
     };
@@ -30,7 +30,7 @@ export class ThreadService {
             console.debug("THREAD ID: ", result.id);
             return result.id;
         });
-        
+
         return emptyThread;
     }
 

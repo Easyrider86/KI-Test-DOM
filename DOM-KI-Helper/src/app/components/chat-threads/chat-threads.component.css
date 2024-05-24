@@ -7,3 +7,22 @@
     display: flex;
     justify-content: right;
 }
+
+.create-thread-btn >>> button {
+    width: 25rem;
+    color: white;
+    background-color: red !important;
+    border-color: red !important;
+}
+
+.dialog-create-btn >>> button {
+    color: white;
+    background-color: red !important;
+    border-color: red !important;
+}
+
+.dialog-cancel-btn  >>> button{
+    color: white;
+    background-color: lightgray !important;
+    border-color: lightgray !important;
+}

@@ -15,7 +15,7 @@ export class AssistantService {
         this.createAIInstance(this.apiKey);
     }
 
-    public async createAIInstance(apiKey: string) {
+    private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
         this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
     };
@@ -33,6 +33,12 @@ export class AssistantService {
             model: "gpt-3.5-turbo",
           });
         
-          console.log('Assistent:', myAssistant);
+          console.debug('Assistent:', myAssistant);
+    }
+
+    public async deleteAssistant(assistant_id: string) {
+        const response = await this.openai.beta.assistants.del(assistant_id);
+  
+        console.debug(response);
     }
 }

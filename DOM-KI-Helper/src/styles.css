@@ -10,6 +10,7 @@ header {
 
 body {
     background-color: lightgray;
+    background-image: url("./assets/pictures/Grau_Gitternetz_730x1920.png");
 }
 
 .ml-2 {
@@ -43,8 +44,7 @@ body {
 }
 
 .inputBackground {
-
-    background-color: lavender !important;
+    background-color: white !important;
 }
 
 .button {

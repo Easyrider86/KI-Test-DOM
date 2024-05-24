@@ -3,10 +3,13 @@
     <div class="pa-2">
         <p class="mr-2">API-Key:</p>
         <input type="password" class="inputBackground" [(ngModel)]="apiKey" placeholder="API Key" style="width: 300px" />
-        <input type="text" class="inputBackground" [(ngModel)]="assistant_id" placeholder="Assistant ID" style="width: 300px; margin-left: 10px;" />
+    </div>
+    <div class="pa-2">
+        <p class="mr-2">Assistant ID:</p>
+        <input type="text" class="inputBackground" [(ngModel)]="assistant_id" placeholder="Assistant ID" style="width: 300px;" />
     </div>
 </mat-card>
 <footer class="settings-footer">
-    <button mat-raised-button color="primary" (click)="saveSettings()" class="button mr-2">Speichern</button>
-    <button mat-raised-button color="primary" (click)="cancel()" class="button mr-2">Abbrechen</button>
+    <button mat-raised-button class="cancel-btn button mr-2" (click)="cancel()">Abbrechen</button>
+    <button mat-raised-button class="save-btn button mr-2" (click)="saveSettings()">Speichern</button>
 </footer>

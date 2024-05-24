@@ -59,6 +59,7 @@ export class ChatComponent {
     this.clearInput();
   }
 
+  // TODO: Do we still need this?
   sendMessageOld(): void {
 
     this.isLoading = true;
