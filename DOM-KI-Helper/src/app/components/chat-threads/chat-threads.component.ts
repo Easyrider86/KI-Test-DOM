@@ -1,11 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { RunService } from '../../service/RunService';
 import { ThreadService } from '../../service/ThreadService';
-
-interface Thread {
-    id: string,
-    name: string
-}
+import { ThreadInfo, ThreadListService } from '../../service/ThreadListService';
 
 @Component({
     selector: 'chat-threads',
@@ -17,8 +13,8 @@ export class ChatThreadsComponent {
     // Event for parent component
     @Output() changeThread = new EventEmitter<string>();
 
-    threads: Thread[];
-    selectedThread: Thread;
+    threads: ThreadInfo[];
+    selectedThread: ThreadInfo;
     threadNameInput: string | undefined;
 
     loading: boolean = false;
@@ -29,13 +25,9 @@ export class ChatThreadsComponent {
         this.visible = true;
     }
 
-    constructor(private runService: RunService, private threadService: ThreadService) {
-        // TODO: Currently hardcoded.
-        this.threads = [
-            { id: 'thread_livlJtNHAnUbT2CIhmo2alCt', name: 'TestThread1' },
-            { id: 'thread_LIn2heYoN4APMiU3uBvm1D81', name: 'TestThread2' },
-            { id: 'thread_CHkBPDt31IhMVp37ttgVBgAQ', name: 'TestThread3' }
-        ];
+    constructor(private runService: RunService, private threadService: ThreadService, private threadListService: ThreadListService) {
+        // TODO: Do it better (DB?)
+        this.threads = threadListService.loadThreads();
     }
 
     /**
@@ -45,7 +37,8 @@ export class ChatThreadsComponent {
         const thread_id = await this.threadService.createThread();
         await this.threads.push({id: thread_id, name: this.threadNameInput});
         console.debug('Created thread: ', thread_id);
-        this.visible = false
+        this.threadListService.saveThreads(this.threads);
+        this.visible = false;
         return thread_id;
     }
 

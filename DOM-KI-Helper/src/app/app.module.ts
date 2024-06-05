@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +20,12 @@ import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+// import { ThreadConfigService } from './config/ThreadConfigService';
+// import { FileSaverModule } from 'ngx-filesaver';
 
+// export function initConfig(appConfig: ThreadConfigService) {
+//  return () => appConfig.load();
+// }
 
 @NgModule({
   declarations: [
@@ -43,9 +48,12 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     SidebarModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    //FileSaverModule
   ],
   providers: [
+    //ThreadConfigService,
+    //{ provide: APP_INITIALIZER, useFactory: initConfig, deps: [ThreadConfigService], multi: true },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
