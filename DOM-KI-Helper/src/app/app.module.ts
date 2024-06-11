@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 // import { ThreadConfigService } from './config/ThreadConfigService';
 // import { FileSaverModule } from 'ngx-filesaver';
 
@@ -49,6 +50,7 @@ import { InputTextModule } from 'primeng/inputtext';
     SidebarModule,
     DialogModule,
     InputTextModule,
+    DropdownModule,
     //FileSaverModule
   ],
   providers: [

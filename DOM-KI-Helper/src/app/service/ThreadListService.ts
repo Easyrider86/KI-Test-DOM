@@ -1,8 +1,5 @@
 import { Injectable } from "@angular/core";
 
-/**
- * Class to save and read settings in the cookies of the webapp.
- */
 export class ThreadInfo {
     id: string = "";
     name: string = "";

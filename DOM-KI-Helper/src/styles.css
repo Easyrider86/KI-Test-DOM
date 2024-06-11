@@ -47,6 +47,10 @@ body {
     background-color: white !important;
 }
 
+.inputBackgroundDisabled {
+    background-color: grey !important;
+}
+
 .button {
     width: 150px !important;
 }

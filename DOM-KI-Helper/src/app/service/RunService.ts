@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import OpenAI from "openai";
-import { ChatGPT_API_KEY } from "../constants/ConfigConstants";
+import { ASSISTANT_ID_KEY, ChatGPT_API_KEY } from "../constants/ConfigConstants";
 import { SettingService } from "./SettingsService";
 
 @Injectable({
@@ -60,7 +60,7 @@ export class RunService {
         let run = await this.openai.beta.threads.runs.create(
             thread_id,
             { 
-                assistant_id: 'asst_Zih7EokqBp93x9GOebmSaLDm'
+                assistant_id: this.settingService.loadSetting(ASSISTANT_ID_KEY)
             }
         );
     

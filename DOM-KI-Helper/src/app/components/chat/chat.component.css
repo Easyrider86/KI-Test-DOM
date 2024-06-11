@@ -10,10 +10,13 @@ input[type="text"] {
   height: 36px;
 }
 
-button {
-  width: 80px;
-  color: white !important;
-  background-color: red !important;
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: red;
+  color: white;
+}
+
+.mat-mdc-raised-button:disabled {
+  color: white;
 }
 
 p-button >>> button {

@@ -3,6 +3,19 @@ import { ChatGPT_API_KEY } from "../constants/ConfigConstants";
 import { SettingService } from "./SettingsService";
 import OpenAI from "openai";
 
+export class Assistant {
+    id: string = "";
+    name: string = "";
+    instructions: string = "";
+
+
+    constructor(id: string, name: string, instructions: string) {
+        this.id = id;
+        this.name = name;
+        this.instructions = instructions
+    }
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -40,5 +53,18 @@ export class AssistantService {
         const response = await this.openai.beta.assistants.del(assistant_id);
   
         console.debug(response);
+    }
+
+    public async getAllAssistans(): Promise<object[]> {
+        if(this.openai === undefined) {
+            await this.createAIInstance(this.apiKey);
+        }
+        const myAssistants = await this.openai.beta.assistants.list({
+            order: "desc",
+            limit: "10",
+          }).then((response) => {
+            return response.data
+          });
+        return myAssistants;
     }
 }

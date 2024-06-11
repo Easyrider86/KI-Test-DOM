@@ -21,7 +21,7 @@ export class ChatThreadsComponent {
 
     visible: boolean = false;
 
-    showDialog() {
+    public showDialog() {
         this.visible = true;
     }
 
@@ -46,9 +46,13 @@ export class ChatThreadsComponent {
 
     public async startRun(message: string) : Promise<string> {
         return this.runService.startRun(this.selectedThread.id, message);
-    }
+    } 
 
     public async changeThreadMessages() {
         this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread.id));
+    }
+
+    public isThreadSelected() {
+        return this.selectedThread != undefined;
     }
 }

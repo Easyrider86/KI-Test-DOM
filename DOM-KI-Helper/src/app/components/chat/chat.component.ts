@@ -3,6 +3,8 @@ import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
 import { ChatConsoleComponent } from '../chat-console/chat-console.component';
 import { ChatThreadsComponent } from '../chat-threads/chat-threads.component';
+import { SettingService } from '../../service/SettingsService';
+import { ASSISTANT_ID_KEY, ChatGPT_API_KEY } from '../../constants/ConfigConstants';
 
 @Component({
   selector: 'chat-component',
@@ -19,8 +21,23 @@ export class ChatComponent {
   inputText: string = '';
   sidebarVisible: boolean = false;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private settingService: SettingService) {
+    if(this.isThreadSelected) {
+      this.sidebarVisible = true;
+    }
+  }
 
+  isThreadSelected() {
+    if(this.chatThreadsComponent) {
+      return this.chatThreadsComponent.isThreadSelected();
+    }
+    return false;
+  }
+
+  isSendEnabeld() {
+    const isApiKey = this.settingService.loadSetting(ChatGPT_API_KEY) != undefined || this.settingService.loadSetting(ChatGPT_API_KEY) != '';
+    const isAssistantId = this.settingService.loadSetting(ASSISTANT_ID_KEY) != undefined || this.settingService.loadSetting(ASSISTANT_ID_KEY) != '';
+    return (this.isThreadSelected() && isApiKey && isAssistantId);
   }
 
   changeThread(messages: Array<any>) {
@@ -46,7 +63,6 @@ export class ChatComponent {
   }
 
   sendMessage(): void {
-
     this.isLoading = true;
 
 

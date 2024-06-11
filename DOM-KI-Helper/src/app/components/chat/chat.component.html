@@ -7,9 +7,10 @@
       <h3>ChatGPT Konsole</h3>
       <chat-console id="chat-console" class="chat-console"></chat-console>
       <div class="chat-input">
-        <input type="text" class="inputBackground" [(ngModel)]="inputText" placeholder="Schreibe eine Nachricht"
-          (keydown)="handleKeyDown($event)" />
-        <button mat-raised-button class="button" (click)="sendMessage()">Senden</button>
+        <input type="text" styleClass="#{isSendEnabeld() ? 'inputBackgroundDisabled' : 'inputBackground'}" [(ngModel)]="inputText"
+               [placeholder]="isSendEnabeld() ? 'Schreibe eine Nachricht' : 'Bitte wähle einen Thread oder erstelle einen neuen.'"
+          (keydown)="handleKeyDown($event)" [disabled]="!isSendEnabeld()" />
+        <button mat-raised-button class="button" (click)="sendMessage()" [disabled]="!isSendEnabeld()">Senden</button>
       </div>
     </div>
   </div>
