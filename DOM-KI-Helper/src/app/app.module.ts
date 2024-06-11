@@ -21,6 +21,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 // import { ThreadConfigService } from './config/ThreadConfigService';
 // import { FileSaverModule } from 'ngx-filesaver';
 
@@ -51,6 +52,7 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     InputTextModule,
     DropdownModule,
+    ProgressSpinnerModule
     //FileSaverModule
   ],
   providers: [

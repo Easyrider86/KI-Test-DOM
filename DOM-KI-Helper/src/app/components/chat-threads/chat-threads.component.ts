@@ -34,11 +34,13 @@ export class ChatThreadsComponent {
      * Create thread.
      */
     public async createThread(): Promise<any> {
+        this.loading = true;
+        this.visible = false;
         const thread_id = await this.threadService.createThread();
         await this.threads.push({id: thread_id, name: this.threadNameInput});
         console.debug('Created thread: ', thread_id);
         this.threadListService.saveThreads(this.threads);
-        this.visible = false;
+        this.loading = false;
         return thread_id;
     }
 

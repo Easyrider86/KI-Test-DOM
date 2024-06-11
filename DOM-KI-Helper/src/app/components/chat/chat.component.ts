@@ -16,7 +16,7 @@ export class ChatComponent {
   @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
   @ViewChild(ChatThreadsComponent)chatThreadsComponent: ChatThreadsComponent;
 
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   chatContent: string = '';
   inputText: string = '';
   sidebarVisible: boolean = false;
@@ -68,9 +68,8 @@ export class ChatComponent {
 
     this.chatThreadsComponent.startRun(this.inputText).then((message) => {
       this.chatConsoleComponente.updateChat("Chat-GPT", message);
+      this.isLoading = false;
     });
-
-    this.isLoading = false;
 
     this.clearInput();
   }

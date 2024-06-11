@@ -10,7 +10,15 @@
         <input type="text" styleClass="#{isSendEnabeld() ? 'inputBackgroundDisabled' : 'inputBackground'}" [(ngModel)]="inputText"
                [placeholder]="isSendEnabeld() ? 'Schreibe eine Nachricht' : 'Bitte wähle einen Thread oder erstelle einen neuen.'"
           (keydown)="handleKeyDown($event)" [disabled]="!isSendEnabeld()" />
-        <button mat-raised-button class="button" (click)="sendMessage()" [disabled]="!isSendEnabeld()">Senden</button>
+        <div *ngIf="isLoading;then loadbutton else sendbutton">here is ignored</div>
+        <ng-template #sendbutton>
+          <button  mat-raised-button class="button" (click)="sendMessage()" [disabled]="!isSendEnabeld()">Senden</button>
+        </ng-template>
+        <ng-template #loadbutton>
+          <button mat-raised-button class="button" [disabled]="true">
+            <i class="fa fa-spinner fa-spin"></i> Loading
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>

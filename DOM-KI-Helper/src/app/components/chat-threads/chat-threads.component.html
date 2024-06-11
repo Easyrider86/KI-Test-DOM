@@ -7,7 +7,7 @@
             optionLabel="name" 
             [style]="{'width':'25rem'}"
             (onChange)="changeThreadMessages()"
-            [listStyle]="{'max-height': '220px'}" />
+            [listStyle]="{'max-height': '50rem'}" />
     </div>
     <p-button class="create-thread-btn" label="Create New Thread" [rounded]="true" [loading]="loading" (onClick)="showDialog()" />
 </div>
@@ -22,3 +22,12 @@
         <p-button class="ml-2 dialog-create-btn" label="Create" (click)="createThread()" />
     </div>
 </p-dialog>
+
+<div *ngIf="loading">
+    <p-progressSpinner 
+    class="progress-spinner"
+    styleClass="w-2rem h-2rem" 
+    strokeWidth="4" 
+    fill="var(--surface-ground)" 
+    animationDuration=".8s" />
+</div>
