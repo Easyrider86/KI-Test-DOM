@@ -23,10 +23,13 @@ export class SettingsComponent {
   async loadSettings(): Promise<void> {
     this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
     this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
+    console.log("+++++++++++++++++++++++++++++")
+    console.log(this.assistant_id)
     this.assistants = await this.assistantService.getAllAssistans() as Assistant[];
+    console.log(this.assistants)
     if(!this.assistant_id || this.assistant_id === "") {
       this.selectedAssistant = this.assistants[0];
-      this.assistant_id = this.selectedAssistant.id;
+      this.assistant_id = this.selectedAssistant?.id;
     }
     else {
       this.selectedAssistant = this.assistants.find(assistant => assistant.id === this.assistant_id);
@@ -37,18 +40,23 @@ export class SettingsComponent {
     }
   }
 
-  saveSettings(): void {
+  async saveSettings(): Promise<void> {
     // Simuliere das Speichern von Daten
     console.log('Einstellungen werden gespeichert...');
 
     // Einstellungen zusammen schreiben
     let settings: Setting[] = [];
+   
     settings.push(new Setting(ChatGPT_API_KEY, this.apiKey));
-    settings.push(new Setting(ASSISTANT_ID_KEY, this.selectedAssistant.id));
+    settings.push(new Setting(ASSISTANT_ID_KEY, this.selectedAssistant?.id));
+    //this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
+   
+    
     this.settingService.saveSettings(settings);
-
+    
     // Hier würde der Code zum Speichern der Datei stehen, wenn es sich um eine Desktop-Anwendung handeln würde
     this.router.navigate(['']); // Navigiere zurück zur Hauptseite nach dem Speichern
+  
   }
 
   cancel(): void {
