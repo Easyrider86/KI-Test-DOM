@@ -3,6 +3,15 @@
     <div class="pa-2">
         <p class="mr-2">API-Key:</p>
         <input type="password" class="inputBackground" [(ngModel)]="apiKey" placeholder="API Key" style="width: 300px" />
+        <p-button 
+        icon="pi pi-check"
+        size="small"
+        [rounded]="true"
+        [outlined]="true" 
+        (click)="validateApiKey()" 
+        class="margin-left-15" />
+        <br>
+        <span style="margin-top: 5px; color: red">{{ errorText }}</span>
     </div>
     <div class="pa-2" style="width: 300px;">
         <p class="mr-2">Assistant ID:</p>
@@ -11,11 +20,12 @@
         [style]="{'width':'300px'}"
         [options]="assistants" 
         [(ngModel)]="selectedAssistant" 
+        [disabled]="isDropdwonDisabled"
         optionLabel="name"
         placeholder="Select an Assistant" />
     </div>
 </mat-card>
 <footer class="settings-footer">
     <button mat-raised-button class="cancel-btn button mr-2" (click)="cancel()">Abbrechen</button>
-    <button mat-raised-button class="save-btn button mr-2" (click)="saveSettings()">Speichern</button>
+    <button mat-raised-button class="save-btn button mr-2" (click)="saveButtonSettings()">Speichern</button>
 </footer>

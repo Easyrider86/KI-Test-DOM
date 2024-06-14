@@ -55,10 +55,11 @@ export class AssistantService {
         console.debug(response);
     }
 
-    public async getAllAssistans(): Promise<object[]> {
+    public async getAllAssistans(apiKey: string): Promise<object[]> {
         if(this.openai === undefined) {
-            await this.createAIInstance(this.apiKey);
+            await this.createAIInstance(apiKey);
         }
+        this.openai.apiKey = apiKey;
         const myAssistants = await this.openai.beta.assistants.list({
             order: "desc",
             limit: "10",

@@ -15,24 +15,26 @@ export class SettingsComponent {
   assistant_id: string = "";
   assistants: Assistant[] = [];
   selectedAssistant: Assistant;
+  errorText: string = "";
+  isDropdwonDisabled: boolean = true;
 
   constructor(private settingService: SettingService, private router: Router, private assistantService: AssistantService) {
     this.loadSettings();
   }
+  
 
   async loadSettings(): Promise<void> {
     this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
+    this.assistants = await this.assistantService.getAllAssistans(this.apiKey) as Assistant[]
+    this.isDrodropdownDisability();
     this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
-    console.log("+++++++++++++++++++++++++++++")
-    console.log(this.assistant_id)
-    this.assistants = await this.assistantService.getAllAssistans() as Assistant[];
-    console.log(this.assistants)
     if(!this.assistant_id || this.assistant_id === "") {
       this.selectedAssistant = this.assistants[0];
       this.assistant_id = this.selectedAssistant?.id;
     }
     else {
       this.selectedAssistant = this.assistants.find(assistant => assistant.id === this.assistant_id);
+      console.log(this.selectedAssistant)
     }
     
     if (this.apiKey == "") {
@@ -43,19 +45,39 @@ export class SettingsComponent {
   async saveSettings(): Promise<void> {
     // Simuliere das Speichern von Daten
     console.log('Einstellungen werden gespeichert...');
-
-    // Einstellungen zusammen schreiben
     let settings: Setting[] = [];
-   
+
+    // Einstellungen zusammen schreiben#
     settings.push(new Setting(ChatGPT_API_KEY, this.apiKey));
     settings.push(new Setting(ASSISTANT_ID_KEY, this.selectedAssistant?.id));
-    //this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
-   
-    
-    this.settingService.saveSettings(settings);
-    
+
     // Hier würde der Code zum Speichern der Datei stehen, wenn es sich um eine Desktop-Anwendung handeln würde
-    this.router.navigate(['']); // Navigiere zurück zur Hauptseite nach dem Speichern
+    this.settingService.saveSettings(settings);
+  }
+
+  routerNavigateBack() {
+    this.router.navigate(['']); 
+  }
+
+  async saveButtonSettings(): Promise<void> {
+    await this.saveSettings();
+    this.routerNavigateBack(); 
+  }
+
+  //Check if the Dropdown disabled
+  isDrodropdownDisability(): void {
+    this.isDropdwonDisabled = this.assistants.length === 0 ? true : false;
+  }
+
+  async validateApiKey(): Promise<void> {
+    try {
+      this.assistants = await this.assistantService.getAllAssistans(this.apiKey) as Assistant[];
+      this.errorText = "";
+    } catch (error) {
+      this.errorText = "The API key is unauthorized.";
+      this.assistants = [];
+    }
+    this.isDrodropdownDisability();
   
   }
 
