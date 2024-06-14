@@ -20,9 +20,18 @@ export class ChatThreadsComponent {
     loading: boolean = false;
 
     visible: boolean = false;
+    deleteDialog: boolean = false;
+    deleteDialogInfo: ThreadInfo;
+    deleteDialogName: string;
 
     public showDialog() {
         this.visible = true;
+    }
+
+    public showDeleteDialog(deletThread) {
+        this.deleteDialogInfo = deletThread;
+        this.deleteDialogName = deletThread.name;
+        this.deleteDialog = true;
     }
 
     constructor(private runService: RunService, private threadService: ThreadService, private threadListService: ThreadListService) {
@@ -42,6 +51,29 @@ export class ChatThreadsComponent {
         this.threadListService.saveThreads(this.threads);
         this.loading = false;
         return thread_id;
+    }
+
+    public async deleteThread() {
+        this.loading = true;
+        this.deleteDialog = false;
+        await this.threadService.deleteThread(this.deleteDialogInfo.id).then((response) => {
+            console.debug('Thread Deleted', response);
+            if(response) {
+                const index = this.threads.indexOf(this.deleteDialogInfo, 0);
+                if (index > -1) {
+                    this.threads.splice(index, 1);
+                    this.threadListService.saveThreads(this.threads);
+                }
+            }
+            else {
+                console.debug('Couild not delete Thread: ', this.deleteDialogName);
+            }
+        }).catch((e) => {
+            console.debug('Couild not delete Thread: ', e);
+        });
+        this.deleteDialogInfo = undefined;
+        this.deleteDialogName = '';
+        this.loading = false;
     }
 
     // RUN

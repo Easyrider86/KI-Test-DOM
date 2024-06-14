@@ -7,7 +7,21 @@
             optionLabel="name" 
             [style]="{'width':'25rem'}"
             (onChange)="changeThreadMessages()"
-            [listStyle]="{'max-height': '50rem'}" />
+            [listStyle]="{'max-height': '50rem'}">
+            <ng-template let-thread pTemplate="item">
+                <div class="listbox-item">
+                    <div>
+                        <span>{{ thread.name }}</span>
+                    </div>
+                    <div>
+                        <p-buttonGroup>
+                            <p-button class="mr-2" icon="pi pi-pencil" size="large" [rounded]="true" severity="danger" [outlined]="true" />
+                            <p-button icon="pi pi-trash" size="large" [rounded]="true" severity="danger" [outlined]="true" (click)="showDeleteDialog(thread)" />
+                        </p-buttonGroup>
+                    </div>
+                </div>
+            </ng-template>
+        </p-listbox>
     </div>
     <p-button class="create-thread-btn" label="Create New Thread" [rounded]="true" [loading]="loading" (onClick)="showDialog()" />
 </div>
@@ -20,6 +34,16 @@
     <div class="flex justify-content-end gap-2 dialogButtons" style="margin-top: 20px; color: black;">
         <p-button class="dialog-cancel-btn" label="Cancel" severity="secondary" (click)="visible = false" />
         <p-button class="ml-2 dialog-create-btn" label="Create" (click)="createThread()" />
+    </div>
+</p-dialog>
+
+<p-dialog header="Delete Thread" [modal]="true" [(visible)]="deleteDialog" [style]="{ width: '30rem' }">
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="threadname" class="font-semibold w-6rem">Thread name: {{ deleteDialogName }}</label>
+    </div>
+    <div class="flex justify-content-end gap-2 dialogButtons" style="margin-top: 20px; color: black;">
+        <p-button class="dialog-cancel-btn" label="Cancel" severity="secondary" (click)="deleteDialog = false" />
+        <p-button class="ml-2 dialog-create-btn" label="Create" (click)="deleteThread()" />
     </div>
 </p-dialog>
 

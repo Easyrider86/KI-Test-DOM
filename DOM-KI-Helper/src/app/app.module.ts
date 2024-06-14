@@ -22,6 +22,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 // import { ThreadConfigService } from './config/ThreadConfigService';
 // import { FileSaverModule } from 'ngx-filesaver';
 
@@ -52,7 +54,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     DialogModule,
     InputTextModule,
     DropdownModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    IconFieldModule,
+    InputIconModule
     //FileSaverModule
   ],
   providers: [

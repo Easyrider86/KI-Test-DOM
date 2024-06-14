@@ -52,9 +52,9 @@ export class ThreadService {
      * @param thread_id 
      * @returns 
      */
-    public async deleteThread(thread_id: number) : Promise<boolean> {
+    public async deleteThread(thread_id: string) : Promise<boolean> {
         console.debug('Delete thread.');
         const response = await this.openai.beta.threads.del(thread_id);
-        return response.data.deleted;
+        return response.deleted;
     }
 }
