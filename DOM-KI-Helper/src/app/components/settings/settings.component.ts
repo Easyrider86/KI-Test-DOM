@@ -25,7 +25,11 @@ export class SettingsComponent {
 
   async loadSettings(): Promise<void> {
     this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
-    this.assistants = await this.assistantService.getAllAssistans(this.apiKey) as Assistant[]
+    try {
+      this.assistants = await this.assistantService.getAllAssistans(this.apiKey) as Assistant[]
+    } catch(error) {
+      console.error("401 Incorrect API key provided, please give a validate key");
+    }
     this.isDrodropdownDisability();
     this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
     if(!this.assistant_id || this.assistant_id === "") {
