@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
 import { ChatConsoleComponent } from '../chat-console/chat-console.component';
@@ -12,7 +12,7 @@ import { SharedService } from '../../service/SharedService';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit  {
+export class ChatComponent implements OnInit, AfterViewInit  {
 
   @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
   @ViewChild(ChatThreadsComponent)chatThreadsComponent: ChatThreadsComponent;
@@ -21,8 +21,25 @@ export class ChatComponent implements OnInit  {
   chatContent: string = '';
   inputText: string = '';
   isSidebarVisible: boolean;
+  placeholder: string = 'Bitte wähle einen Thread oder erstelle einen neuen.';
+  isSendEnabled: boolean = false;
 
-  constructor(private chatService: ChatService, private settingService: SettingService, private sharedService: SharedService) {
+
+  ngAfterViewInit() {
+    // Any initialization that may cause change detection issues should be done here
+    this.placeholder = 'Schreibe eine Nachricht';
+    
+    // Manually trigger change detection after initializing the values
+    this.cdRef.detectChanges();
+  }
+
+
+  // Method to update the inputText which might change the isSendEnabled flag
+  updateInputText(text: string) {
+    this.inputText = text;
+  }
+
+  constructor(private chatService: ChatService, private settingService: SettingService, private sharedService: SharedService, private cdRef: ChangeDetectorRef) {
     if(this.isThreadSelected) {
       this.isSidebarVisible = true;
     }
