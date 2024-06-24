@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit, AfterViewInit  {
 
 
   ngAfterViewInit() {
+    console.log("TSRFD");
     // Any initialization that may cause change detection issues should be done here
     this.placeholder = 'Schreibe eine Nachricht';
     
@@ -90,13 +91,16 @@ export class ChatComponent implements OnInit, AfterViewInit  {
   sendMessage(): void {
     this.isLoading = true;
 
-
     this.chatThreadsComponent.startRun(this.inputText).then((message) => {
       this.chatConsoleComponente.updateChat("Chat-GPT", message);
       this.isLoading = false;
     });
 
     this.clearInput();
+  }
+
+  cancelRun(): void {
+    this.chatThreadsComponent.cancelRun();
   }
 
   // TODO: Do we still need this?

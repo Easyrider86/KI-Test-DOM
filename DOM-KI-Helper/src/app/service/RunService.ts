@@ -10,6 +10,7 @@ export class RunService {
 
     apiKey;
     openai;
+    cancelled: boolean = false;
 
     constructor(private settingService: SettingService) {
         this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
@@ -45,6 +46,7 @@ export class RunService {
      * @returns result messsage of the server
      */
     public async startRun(thread_id: string, message: string) : Promise<string> {
+        this.cancelled = false;
         // Create message
         console.debug('Create message');
         const threadMessages = await this.openai.beta.threads.messages.create(
@@ -68,6 +70,14 @@ export class RunService {
         // TODO: Search for a better solution or wait for openai update.
         while(run.status != 'completed') {
             await this.sleep(500);
+            if (this.cancelled) {
+                console.debug("Run canceled")
+                await this.openai.beta.threads.runs.cancel(
+                    thread_id,
+                    run.id
+                );
+                return 'Anfrage abgebrochen'
+            }
             run = await this.openai.beta.threads.runs.retrieve(thread_id, run.id);
         }
 
@@ -80,6 +90,10 @@ export class RunService {
             console.debug(run.status);
             return 'No answer';
           }
+    }
+
+    public async cancelRun() {
+        this.cancelled = true;
     }
     
     private sleep(milliseconds: number) {

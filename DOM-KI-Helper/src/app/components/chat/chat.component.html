@@ -19,8 +19,8 @@
           <button  mat-raised-button class="button" (click)="sendMessage()" [disabled]="!isSendEnabeld()">Senden</button>
         </ng-template>
         <ng-template #loadbutton>
-          <button mat-raised-button class="button" [disabled]="true">
-            <i class="fa fa-spinner fa-spin"></i> Loading
+          <button mat-raised-button class="button" (click)="cancelRun()">
+            <i class="fa fa-spinner fa-spin"></i> Abbrechen
           </button>
         </ng-template>
       </div>
