@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { RunService } from '../../service/RunService';
 import { ThreadService } from '../../service/ThreadService';
 import { ThreadInfo, ThreadListService } from '../../service/ThreadListService';
@@ -8,7 +8,7 @@ import { ThreadInfo, ThreadListService } from '../../service/ThreadListService';
     templateUrl: './chat-threads.component.html',
     styleUrls: ['./chat-threads.component.css']
 })
-export class ChatThreadsComponent {
+export class ChatThreadsComponent implements OnInit {
 
     // Event for parent component
     @Output() changeThread = new EventEmitter<string>();
@@ -24,6 +24,10 @@ export class ChatThreadsComponent {
     deleteDialogInfo: ThreadInfo;
     deleteDialogName: string;
 
+   async ngOnInit() {
+        this.changeThreadMessages();
+      }
+
     public showDialog() {
         this.visible = true;
     }
@@ -37,6 +41,7 @@ export class ChatThreadsComponent {
     constructor(private runService: RunService, private threadService: ThreadService, private threadListService: ThreadListService) {
         // TODO: Do it better (DB?)
         this.threads = threadListService.loadThreads();
+        this.selectedThread  = this.threadListService.loadSlectedThread()[0];
     }
 
     /**
@@ -83,8 +88,12 @@ export class ChatThreadsComponent {
     } 
 
     public async changeThreadMessages() {
-        console.log("hhhhhhhhhhhhhhhhhhhhhh")
-        this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread.id));
+        let selectedThread: ThreadInfo[] = [];
+        const thread_id: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.id;
+        const thread_name: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.name;
+        await selectedThread.push({id: thread_id, name: thread_name})
+        this.threadListService.saveSelectedThread(selectedThread);
+        this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread?.id));
     }
 
     public isThreadSelected() {

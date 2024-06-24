@@ -91,7 +91,7 @@ export class SettingsComponent {
     this.router.navigate(['']); // Navigiere zurück zur Hauptseite
   }
 
-  // send the data to chat.component
+  // Daten zu Chat.component senden
   hideSidebar() {
     const isSidebarVisible = false ;
     this.sharedService.setData(isSidebarVisible);
