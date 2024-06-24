@@ -83,6 +83,7 @@ export class ChatThreadsComponent {
     } 
 
     public async changeThreadMessages() {
+        console.log("hhhhhhhhhhhhhhhhhhhhhh")
         this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread.id));
     }
 

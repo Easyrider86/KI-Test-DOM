@@ -1,17 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ChatService } from '../../service/ChatService';
 import { ChatCompletion } from '../../server/ChatCompletion';
 import { ChatConsoleComponent } from '../chat-console/chat-console.component';
 import { ChatThreadsComponent } from '../chat-threads/chat-threads.component';
 import { SettingService } from '../../service/SettingsService';
 import { ASSISTANT_ID_KEY, ChatGPT_API_KEY } from '../../constants/ConfigConstants';
+import { SharedService } from '../../service/SharedService';
 
 @Component({
   selector: 'chat-component',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit  {
 
   @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
   @ViewChild(ChatThreadsComponent)chatThreadsComponent: ChatThreadsComponent;
@@ -19,12 +20,19 @@ export class ChatComponent {
   isLoading: boolean = false;
   chatContent: string = '';
   inputText: string = '';
-  sidebarVisible: boolean = false;
+  isSidebarVisible: boolean;
 
-  constructor(private chatService: ChatService, private settingService: SettingService) {
+  constructor(private chatService: ChatService, private settingService: SettingService, private sharedService: SharedService) {
     if(this.isThreadSelected) {
-      this.sidebarVisible = true;
+      this.isSidebarVisible = true;
     }
+  }
+  
+  // receive the data from the settings.component to hide the Sidebar
+  ngOnInit() {
+    this.sharedService.data$.subscribe(data => {
+      this.isSidebarVisible = data;
+    });
   }
 
   isThreadSelected() {

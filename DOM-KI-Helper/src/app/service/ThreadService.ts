@@ -26,6 +26,7 @@ export class ThreadService {
      */
     public async createThread(): Promise<any> {
         console.debug('Create thread.');
+        this.openai.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
         const emptyThread = await this.openai.beta.threads.create().then((result: any) => {
             console.debug("THREAD ID: ", result.id);
             return result.id;

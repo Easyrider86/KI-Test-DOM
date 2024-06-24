@@ -1,7 +1,7 @@
 <main>
   <div class="row">
     <div class="column sidebar">
-      <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" size="large" />
+      <p-button (click)="isSidebarVisible = true" icon="pi pi-arrow-right" size="large" />
     </div>
     <div class="column">
       <h3>ChatGPT Konsole</h3>
@@ -24,6 +24,6 @@
   </div>
 </main>
 
-<p-sidebar [(visible)]="sidebarVisible" [style]="{ width: '30rem' }">
+<p-sidebar [(visible)]="isSidebarVisible" [style]="{ width: '30rem' }">
   <chat-threads (changeThread)="changeThread($event)" />
 </p-sidebar>
