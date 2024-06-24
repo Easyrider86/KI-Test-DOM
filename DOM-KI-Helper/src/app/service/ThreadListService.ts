@@ -27,6 +27,14 @@ export class ThreadListService {
         localStorage.setItem("threads", JSON.stringify(threads));
     }
 
+      /**
+     * Stores the selected thread in the local storage.
+     * @param thread to be saved.
+     */
+    saveSelectedThread(thread: ThreadInfo[]) {
+        localStorage.setItem("selected thread", JSON.stringify(thread));
+    }
+
     /**
      * Loads the list of threads from local storage.
      * 
@@ -41,6 +49,24 @@ export class ThreadListService {
         }
         else {
             console.debug("Die Thread Liste existiert nicht.");
+            return [];
+        }
+    }
+
+      /**
+     * Loads the selected thread from local storage.
+     * 
+     * @returns Returns the selected thread as array.
+     */
+      loadSlectedThread(): ThreadInfo[] {
+
+        let value: ThreadInfo[] = JSON.parse(localStorage.getItem('selected thread'));
+
+        if (value) {
+            return value;
+        }
+        else {
+            console.debug("Die Thread existiert nicht.");
             return [];
         }
     }

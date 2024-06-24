@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit  {
     }
   }
   
-  // receive the data from the settings.component to hide the Sidebar
+  // Datenempfang von Settings.component um die Sidebar zu verstecken
   ngOnInit() {
     this.sharedService.data$.subscribe(data => {
       this.isSidebarVisible = data;
