@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Setting, SettingService } from '../../service/SettingsService';
 import { ChatGPT_API_KEY, ASSISTANT_ID_KEY } from '../../constants/ConfigConstants';
 import { Assistant, AssistantService } from '../../service/AssistantService';
+import { SharedService } from '../../service/SharedService';
 
 @Component({
   selector: 'settings-component',
@@ -18,7 +19,7 @@ export class SettingsComponent {
   errorText: string = "";
   isDropdwonDisabled: boolean = true;
 
-  constructor(private settingService: SettingService, private router: Router, private assistantService: AssistantService) {
+  constructor(private settingService: SettingService, private router: Router, private assistantService: AssistantService, private sharedService: SharedService) {
     this.loadSettings();
   }
   
@@ -66,6 +67,7 @@ export class SettingsComponent {
   async saveButtonSettings(): Promise<void> {
     await this.saveSettings();
     this.routerNavigateBack(); 
+    this.hideSidebar();
   }
 
   //Check if the Dropdown disabled
@@ -87,5 +89,11 @@ export class SettingsComponent {
 
   cancel(): void {
     this.router.navigate(['']); // Navigiere zurück zur Hauptseite
+  }
+
+  // send the data to chat.component
+  hideSidebar() {
+    const isSidebarVisible = false ;
+    this.sharedService.setData(isSidebarVisible);
   }
 }

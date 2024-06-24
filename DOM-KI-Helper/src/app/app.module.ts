@@ -24,6 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { StoreModule } from '@ngrx/store';
 // import { ThreadConfigService } from './config/ThreadConfigService';
 // import { FileSaverModule } from 'ngx-filesaver';
 
@@ -56,7 +57,8 @@ import { InputIconModule } from 'primeng/inputicon';
     DropdownModule,
     ProgressSpinnerModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    StoreModule.forRoot({}, {})
     //FileSaverModule
   ],
   providers: [
