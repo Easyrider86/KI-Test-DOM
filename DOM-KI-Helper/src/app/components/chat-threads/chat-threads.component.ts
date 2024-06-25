@@ -132,6 +132,9 @@ export class ChatThreadsComponent implements OnInit {
             this.threadListService.saveSelectedThread(selectedThread);
             this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread?.id));
         }
+        else {
+            this.changeThread.emit("");
+        }
     }
 
     public isThreadSelected() {
