@@ -58,7 +58,7 @@ export class ThreadListService {
      * 
      * @returns Returns the selected thread as array.
      */
-      loadSlectedThread(): ThreadInfo[] {
+      loadSelectedThread(): ThreadInfo[] {
 
         let value: ThreadInfo[] = JSON.parse(localStorage.getItem('selected thread'));
 

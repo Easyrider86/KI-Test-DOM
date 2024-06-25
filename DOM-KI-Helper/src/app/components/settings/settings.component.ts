@@ -66,8 +66,7 @@ export class SettingsComponent {
 
   async saveButtonSettings(): Promise<void> {
     await this.saveSettings();
-    this.routerNavigateBack(); 
-    this.hideSidebar();
+    this.routerNavigateBack();
   }
 
   //Check if the Dropdown disabled
@@ -89,6 +88,7 @@ export class SettingsComponent {
 
   cancel(): void {
     this.router.navigate(['']); // Navigiere zurück zur Hauptseite
+    this.hideSidebar();
   }
 
   // Daten zu Chat.component senden

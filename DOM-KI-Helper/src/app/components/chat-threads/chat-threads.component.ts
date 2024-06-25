@@ -22,11 +22,18 @@ export class ChatThreadsComponent implements OnInit {
     visible: boolean = false;
     deleteDialog: boolean = false;
     deleteDialogInfo: ThreadInfo;
+    editDialogInfo: ThreadInfo;
+    editDialogId: string;
     deleteDialogName: string;
+    isEditDialogVisible: boolean = false;
 
    async ngOnInit() {
-        this.changeThreadMessages();
-      }
+        try {
+            await this.changeThreadMessages(); 
+        } catch {
+            console.error("No Thread is selected")
+        } 
+    }
 
     public showDialog() {
         this.visible = true;
@@ -38,10 +45,16 @@ export class ChatThreadsComponent implements OnInit {
         this.deleteDialog = true;
     }
 
+    public showEditDialog(editThread) {
+        this.deleteDialogInfo = editThread;
+        this.editDialogId = editThread.id;
+        this.isEditDialogVisible = true;
+    }
+
     constructor(private runService: RunService, private threadService: ThreadService, private threadListService: ThreadListService) {
         // TODO: Do it better (DB?)
         this.threads = threadListService.loadThreads();
-        this.selectedThread  = this.threadListService.loadSlectedThread()[0];
+        this.selectedThread  = this.threadListService.loadSelectedThread()[0];
     }
 
     /**
@@ -61,7 +74,7 @@ export class ChatThreadsComponent implements OnInit {
     public async deleteThread() {
         this.loading = true;
         this.deleteDialog = false;
-        await this.threadService.deleteThread(this.deleteDialogInfo.id).then((response) => {
+        await this.threadService.deleteThread(this.deleteDialogInfo?.id).then((response) => {
             console.debug('Thread Deleted', response);
             if(response) {
                 const index = this.threads.indexOf(this.deleteDialogInfo, 0);
@@ -81,10 +94,29 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = false;
     }
 
+    public async editThread() {
+        this.loading = true;
+        this.isEditDialogVisible = false;
+        let editedThread: ThreadInfo = this.threads.find(thread => thread.id === this.editDialogId);
+        editedThread.name = this.threadNameInput;
+       let newThread: ThreadInfo[] = [editedThread]
+        const updatedThreadsList = this.threads.map((thread) => {
+            if (thread.id=== this.editDialogId) {
+              return { ...thread, name: editedThread.name }; // Replace edition with a new value
+            }
+            return thread;
+          });
+
+        this.threadListService.saveThreads(updatedThreadsList);
+        this.threadListService.saveSelectedThread(newThread)
+    
+        this.loading = false;
+    }
+
     // RUN
 
     public async startRun(message: string) : Promise<string> {
-        return this.runService.startRun(this.selectedThread.id, message);
+        return this.runService.startRun(this.selectedThread?.id, message);
     } 
 
     public async changeThreadMessages() {
@@ -99,4 +131,6 @@ export class ChatThreadsComponent implements OnInit {
     public isThreadSelected() {
         return this.selectedThread != undefined;
     }
+
+ 
 }
