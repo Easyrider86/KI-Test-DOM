@@ -117,15 +117,21 @@ export class ChatThreadsComponent implements OnInit {
 
     public async startRun(message: string) : Promise<string> {
         return this.runService.startRun(this.selectedThread?.id, message);
+    }
+    
+    public async cancelRun() {
+        return this.runService.cancelRun();
     } 
 
     public async changeThreadMessages() {
         let selectedThread: ThreadInfo[] = [];
-        const thread_id: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.id;
-        const thread_name: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.name;
-        await selectedThread.push({id: thread_id, name: thread_name})
-        this.threadListService.saveSelectedThread(selectedThread);
-        this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread?.id));
+        if(this.selectedThread) {
+            const thread_id: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.id;
+            const thread_name: string = this.threads.find(thread => thread?.id === this.selectedThread?.id)?.name;
+            await selectedThread.push({id: thread_id, name: thread_name})
+            this.threadListService.saveSelectedThread(selectedThread);
+            this.changeThread.emit(await this.runService.getThreadMessages(this.selectedThread?.id));
+        }
     }
 
     public isThreadSelected() {
