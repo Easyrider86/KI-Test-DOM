@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Setting, SettingService } from '../../service/SettingsService';
 import { ChatGPT_API_KEY, ASSISTANT_ID_KEY } from '../../constants/ConfigConstants';
@@ -10,7 +10,7 @@ import { SharedService } from '../../service/SharedService';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
 
   apiKey: string = "";
   assistant_id: string = "";
@@ -18,11 +18,15 @@ export class SettingsComponent {
   selectedAssistant: Assistant;
   errorText: string = "";
   isDropdwonDisabled: boolean = true;
+  booleanValue: boolean;
 
   constructor(private settingService: SettingService, private router: Router, private assistantService: AssistantService, private sharedService: SharedService) {
     this.loadSettings();
   }
   
+  ngOnInit(): void {
+    this.sharedService.currentBoolean.subscribe(value => this.booleanValue = value);
+  }
 
   async loadSettings(): Promise<void> {
     this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
@@ -86,14 +90,9 @@ export class SettingsComponent {
   
   }
 
-  cancel(): void {
+  cancel(newValue: boolean): void {
     this.router.navigate(['']); // Navigiere zurück zur Hauptseite
-    this.hideSidebar();
+    this.sharedService.changeBoolean(newValue);
   }
 
-  // Daten zu Chat.component senden
-  hideSidebar() {
-    const isSidebarVisible = false ;
-    this.sharedService.setData(isSidebarVisible);
-  }
 }

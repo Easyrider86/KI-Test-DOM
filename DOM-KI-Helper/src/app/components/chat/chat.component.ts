@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit, AfterViewInit  {
   isLoading: boolean = false;
   chatContent: string = '';
   inputText: string = '';
+  // Datenempfang von Settings.component um die Sidebar zu verstecken
   isSidebarVisible: boolean;
   placeholder: string = 'Bitte wähle einen Thread oder erstelle einen neuen.';
   isSendEnabled: boolean = false;
@@ -45,12 +46,9 @@ export class ChatComponent implements OnInit, AfterViewInit  {
       this.isSidebarVisible = true;
     }
   }
-  
-  // Datenempfang von Settings.component um die Sidebar zu verstecken
-  ngOnInit() {
-    this.sharedService.data$.subscribe(data => {
-      this.isSidebarVisible = data;
-    });
+
+  ngOnInit(): void {
+    this.sharedService.currentBoolean.subscribe(value => this.isSidebarVisible = value);
   }
 
   isThreadSelected() {
