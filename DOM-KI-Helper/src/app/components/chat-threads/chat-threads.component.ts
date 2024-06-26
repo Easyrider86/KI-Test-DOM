@@ -48,7 +48,7 @@ export class ChatThreadsComponent implements OnInit {
 
     public showEditDialog(editThread) {
         this.deleteDialogInfo = editThread;
-        this.editDialogId = editThread.id;
+        this.editDialogId = editThread?.id;
         this.isEditDialogVisible = true;
     }
 
@@ -65,7 +65,6 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = true;
         this.visible = false;
         const thread_id = await this.threadService.createThread();
-        //this.threads.push({id: thread_id, name: this.threadNameInput});
         this.threads = [...this.threads, {id: thread_id, name: this.threadNameInput}];
         console.debug('Created thread: ', thread_id);
         this.threadListService.saveThreads(this.threads);
@@ -73,17 +72,14 @@ export class ChatThreadsComponent implements OnInit {
         return thread_id;
     }
 
-    public async deleteThread() {
+    public async deleteThread(thread_id: string) {
         this.loading = true;
         this.deleteDialog = false;
         await this.threadService.deleteThread(this.deleteDialogInfo?.id).then((response) => {
             console.debug('Thread Deleted', response);
             if(response) {
-                const index = this.threads.indexOf(this.deleteDialogInfo, 0);
-                if (index > -1) {
-                    this.threads.splice(index, 1);
+                this.threads = this.threads.filter(thread => thread.id !== thread_id);
                     this.threadListService.saveThreads(this.threads);
-                }
             }
             else {
                 console.debug('Couild not delete Thread: ', this.deleteDialogName);
@@ -100,7 +96,7 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = true;
         this.isEditDialogVisible = false;
         let editedThread: ThreadInfo = this.threads.find(thread => thread.id === this.editDialogId);
-        editedThread.name = this.threadNameInput;
+        editedThread!.name = this.threadNameInput;
        let newThread: ThreadInfo[] = [editedThread]
         const updatedThreadsList = this.threads.map((thread) => {
             if (thread.id=== this.editDialogId) {

@@ -15,7 +15,7 @@
                     </div>
                     <div>
                         <p-buttonGroup>
-                            <p-button class="mr-2" icon="pi pi-pencil" size="large" [rounded]="true" severity="danger" [outlined]="true" (click)="showEditDialog()" />
+                            <p-button class="mr-2" icon="pi pi-pencil" size="large" [rounded]="true" severity="danger" [outlined]="true" (click)="showEditDialog(thread)" />
                             <p-button icon="pi pi-trash" size="large" [rounded]="true" severity="danger" [outlined]="true" (click)="showDeleteDialog(thread)" />
                         </p-buttonGroup>
                     </div>
@@ -55,7 +55,7 @@
     </div>
     <div class="flex justify-content-end gap-2 dialogButtons" style="margin-top: 20px; color: black;">
         <p-button class="dialog-cancel-btn" label="Cancel" severity="secondary" (click)="deleteDialog = false" />
-        <p-button class="ml-2 dialog-create-btn" label="Delete" (click)="deleteThread()" />
+        <p-button class="ml-2 dialog-create-btn" label="Delete" (click)="deleteThread(selectedThread?.id)" />
     </div>
 </p-dialog>
 
