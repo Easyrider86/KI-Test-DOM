@@ -48,7 +48,7 @@ export class ChatThreadsComponent implements OnInit {
 
     public showEditDialog(editThread) {
         this.deleteDialogInfo = editThread;
-        this.editDialogId = editThread.id;
+        this.editDialogId = editThread?.id;
         this.isEditDialogVisible = true;
     }
 
@@ -65,7 +65,6 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = true;
         this.visible = false;
         const thread_id = await this.threadService.createThread();
-        //this.threads.push({id: thread_id, name: this.threadNameInput});
         this.threads = [...this.threads, {id: thread_id, name: this.threadNameInput}];
         console.debug('Created thread: ', thread_id);
         this.threadListService.saveThreads(this.threads);
@@ -97,7 +96,7 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = true;
         this.isEditDialogVisible = false;
         let editedThread: ThreadInfo = this.threads.find(thread => thread.id === this.editDialogId);
-        editedThread.name = this.threadNameInput;
+        editedThread!.name = this.threadNameInput;
        let newThread: ThreadInfo[] = [editedThread]
         const updatedThreadsList = this.threads.map((thread) => {
             if (thread.id=== this.editDialogId) {
