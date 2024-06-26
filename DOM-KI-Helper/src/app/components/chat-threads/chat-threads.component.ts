@@ -37,6 +37,7 @@ export class ChatThreadsComponent implements OnInit {
     }
 
     public showDialog() {
+        this.threadNameInput = ""
         this.visible = true;
     }
 
@@ -47,7 +48,8 @@ export class ChatThreadsComponent implements OnInit {
     }
 
     public showEditDialog(editThread) {
-        this.deleteDialogInfo = editThread;
+        this.threadNameInput = editThread?.name;
+        this.editDialogInfo = editThread;
         this.editDialogId = editThread?.id;
         this.isEditDialogVisible = true;
     }
@@ -97,7 +99,7 @@ export class ChatThreadsComponent implements OnInit {
         this.isEditDialogVisible = false;
         let editedThread: ThreadInfo = this.threads.find(thread => thread.id === this.editDialogId);
         editedThread!.name = this.threadNameInput;
-       let newThread: ThreadInfo[] = [editedThread]
+        let newThread: ThreadInfo[] = [editedThread]
         const updatedThreadsList = this.threads.map((thread) => {
             if (thread.id=== this.editDialogId) {
               return { ...thread, name: editedThread.name }; // Replace edition with a new value
