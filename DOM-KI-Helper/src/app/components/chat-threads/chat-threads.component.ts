@@ -73,17 +73,14 @@ export class ChatThreadsComponent implements OnInit {
         return thread_id;
     }
 
-    public async deleteThread() {
+    public async deleteThread(thread_id: string) {
         this.loading = true;
         this.deleteDialog = false;
         await this.threadService.deleteThread(this.deleteDialogInfo?.id).then((response) => {
             console.debug('Thread Deleted', response);
             if(response) {
-                const index = this.threads.indexOf(this.deleteDialogInfo, 0);
-                if (index > -1) {
-                    this.threads.splice(index, 1);
-                    this.threadListService.saveThreads(this.threads);
-                }
+                this.threads = this.threads.filter(thread => thread.id !== thread_id);
+                this.threadListService.saveThreads(this.threads);
             }
             else {
                 console.debug('Couild not delete Thread: ', this.deleteDialogName);
