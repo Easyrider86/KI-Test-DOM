@@ -3,6 +3,7 @@ import { RunService } from '../../service/RunService';
 import { ThreadService } from '../../service/ThreadService';
 import { ThreadInfo, ThreadListService } from '../../service/ThreadListService';
 
+
 @Component({
     selector: 'chat-threads',
     templateUrl: './chat-threads.component.html',
@@ -64,7 +65,8 @@ export class ChatThreadsComponent implements OnInit {
         this.loading = true;
         this.visible = false;
         const thread_id = await this.threadService.createThread();
-        await this.threads.push({id: thread_id, name: this.threadNameInput});
+        //this.threads.push({id: thread_id, name: this.threadNameInput});
+        this.threads = [...this.threads, {id: thread_id, name: this.threadNameInput}];
         console.debug('Created thread: ', thread_id);
         this.threadListService.saveThreads(this.threads);
         this.loading = false;
