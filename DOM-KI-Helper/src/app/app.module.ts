@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
-
 import { SettingsComponent } from './components/settings/settings.component'; 
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatConsoleComponent } from './components/chat-console/chat-console.component';

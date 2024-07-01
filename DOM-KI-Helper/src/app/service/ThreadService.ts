@@ -18,7 +18,7 @@ export class ThreadService {
 
     private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
-        this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
+        this.openai = await new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
     };
 
     /**
@@ -40,7 +40,7 @@ export class ThreadService {
      * 
      * @param thread_id 
      */
-    public async getThread(thread_id: string) : Promise<any> {
+    public async getThread(thread_id: string): Promise<any> {
         console.debug('Get thread.');
         await this.openai.beta.threads.retrieve(thread_id).then((result: any) => {
             return result;
@@ -53,7 +53,7 @@ export class ThreadService {
      * @param thread_id 
      * @returns 
      */
-    public async deleteThread(thread_id: string) : Promise<boolean> {
+    public async deleteThread(thread_id: string): Promise<boolean> {
         console.debug('Delete thread.');
         const response = await this.openai.beta.threads.del(thread_id);
         return response.deleted;

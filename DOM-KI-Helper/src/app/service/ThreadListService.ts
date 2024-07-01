@@ -27,10 +27,10 @@ export class ThreadListService {
         localStorage.setItem("threads", JSON.stringify(threads));
     }
 
-      /**
-     * Stores the selected thread in the local storage.
-     * @param thread to be saved.
-     */
+    /**
+   * Stores the selected thread in the local storage.
+   * @param thread to be saved.
+   */
     saveSelectedThread(thread: ThreadInfo[]) {
         localStorage.setItem("selected thread", JSON.stringify(thread));
     }
@@ -53,12 +53,12 @@ export class ThreadListService {
         }
     }
 
-      /**
-     * Loads the selected thread from local storage.
-     * 
-     * @returns Returns the selected thread as array.
-     */
-      loadSelectedThread(): ThreadInfo[] {
+    /**
+   * Loads the selected thread from local storage.
+   * 
+   * @returns Returns the selected thread as array.
+   */
+    loadSelectedThread(): ThreadInfo[] {
 
         let value: ThreadInfo[] = JSON.parse(localStorage.getItem('selected thread'));
 

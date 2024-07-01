@@ -4,8 +4,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
-    { path: '', component: ChatComponent },
-    { path: 'settings', component: SettingsComponent }
+  { path: '', component: ChatComponent },
+  { path: 'settings', component: SettingsComponent }
 ];
 
 @NgModule({

@@ -12,10 +12,10 @@ import { SharedService } from '../../service/SharedService';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewInit  {
+export class ChatComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(ChatConsoleComponent)chatConsoleComponente: ChatConsoleComponent;
-  @ViewChild(ChatThreadsComponent)chatThreadsComponent: ChatThreadsComponent;
+  @ViewChild(ChatConsoleComponent) chatConsoleComponente: ChatConsoleComponent;
+  @ViewChild(ChatThreadsComponent) chatThreadsComponent: ChatThreadsComponent;
 
   isLoading: boolean = false;
   chatContent: string = '';
@@ -30,65 +30,59 @@ export class ChatComponent implements OnInit, AfterViewInit  {
     console.log("TSRFD");
     // Any initialization that may cause change detection issues should be done here
     this.placeholder = 'Schreibe eine Nachricht';
-    
+
     // Manually trigger change detection after initializing the values
     this.cdRef.detectChanges();
   }
 
 
   // Method to update the inputText which might change the isSendEnabled flag
-  updateInputText(text: string) {
+  public updateInputText(text: string) {
     this.inputText = text;
   }
 
   constructor(private chatService: ChatService, private settingService: SettingService, private sharedService: SharedService, private cdRef: ChangeDetectorRef) {
-    if(this.isThreadSelected) {
+    if (this.isThreadSelected) {
       this.isSidebarVisible = true;
     }
   }
 
   ngOnInit(): void {
+    //Subscribes to the boolean$ observable in the ngOnInit method. This ensures the component updates whenever the boolean value changes.
     this.sharedService.currentBoolean.subscribe(value => this.isSidebarVisible = value);
   }
 
-  isThreadSelected() {
-    if(this.chatThreadsComponent) {
+  public isThreadSelected() {
+    if (this.chatThreadsComponent) {
       return this.chatThreadsComponent.isThreadSelected();
     }
     return false;
   }
 
-  isSendEnabeld() {
+  public isSendEnabeld() {
     const isApiKey = this.settingService.loadSetting(ChatGPT_API_KEY) != undefined || this.settingService.loadSetting(ChatGPT_API_KEY) != '';
     const isAssistantId = this.settingService.loadSetting(ASSISTANT_ID_KEY) != undefined || this.settingService.loadSetting(ASSISTANT_ID_KEY) != '';
     return (this.isThreadSelected() && isApiKey && isAssistantId);
   }
 
-  changeThread(messages: Array<any>) {
+  public changeThread(messages: Array<any>) {
     this.isLoading = true;
     this.clearInput();
     this.chatConsoleComponente.clearChat();
-
     console.log('GET FROM CHILD', messages);
-
-    for (const message of messages) {
-      this.chatConsoleComponente.updateChat(message.role, message.content[0].text.value);
-    }
-
+    this.chatConsoleComponente.updateAllChat(messages);
     this.isLoading = false;
   }
 
-  handleKeyDown(event: KeyboardEvent): void {
+  public handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
-
       this.sendMessage();
     }
   }
 
-  sendMessage(): void {
-    this.isLoading = true;
-
+  public sendMessage(): void {
+    this.isLoading = true
     this.chatThreadsComponent.startRun(this.inputText).then((message) => {
       this.chatConsoleComponente.updateChat("Chat-GPT", message);
       this.isLoading = false;
@@ -97,39 +91,14 @@ export class ChatComponent implements OnInit, AfterViewInit  {
     this.clearInput();
   }
 
-  cancelRun(): void {
+  public cancelRun(): void {
     this.chatThreadsComponent.cancelRun();
   }
 
-  // TODO: Do we still need this?
-  sendMessageOld(): void {
-
-    this.isLoading = true;
-
-    this.chatService.sendMessage(this.inputText).subscribe({
-      next: (completion: ChatCompletion) => {
-        console.log("Received completion:", completion);
-        this.chatConsoleComponente.updateChat("Chat-GPT", completion.choices[0].message.content)
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error("Error sending message:", error);
-        this.isLoading = false;
-      },
-      
-    });
-
-    this.clearInput();
-  }
-
-  clearInput(): void {
+  public clearInput(): void {
     if (this.inputText.trim()) {
       this.chatConsoleComponente.updateChat("User", this.inputText)
-      this.inputText = ''; // Feld leeren nach dem Senden
+      this.inputText = ''; // Clear the field after sending
     }
-  }
-
-  updateChat(message: string): void {
-    this.chatContent += (this.chatContent ? '\n' : '') + message;
   }
 }

@@ -1,4 +1,4 @@
-.teststyle >>> .p-listbox {
+.teststyle>>>.p-listbox {
     font-size: medium;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -8,20 +8,20 @@
     justify-content: right;
 }
 
-.create-thread-btn >>> button {
+.create-thread-btn>>>button {
     width: 25rem;
     color: white;
     background-color: red !important;
     border-color: red !important;
 }
 
-.dialog-create-btn >>> button {
+.dialog-create-btn>>>button {
     color: white;
     background-color: red !important;
     border-color: red !important;
 }
 
-.dialog-cancel-btn  >>> button{
+.dialog-cancel-btn>>>button {
     color: white;
     background-color: lightgray !important;
     border-color: lightgray !important;
@@ -42,14 +42,14 @@
 
 /* Transparent Overlay */
 .progress-spinner:before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.53);
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.53);
 }
 
 .listbox-item {

@@ -1,15 +1,15 @@
 header {
-    display: flex;
-    justify-content: space-between; /* Verteilt den Platz gleichmäßig zwischen den Elementen */
-    align-items: center; /* Zentriert die Elemente vertikal */
-    padding: 10px;
-  }
-  
-  nav a {
-    text-decoration: none; /* Entfernt die Unterstreichung des Links */
-    color: inherit; /* Erbt die Farbe vom Elternelement */
-  }
-  
-  nav i {
-    font-size: 30px; /* Vergrößert das Icon ein wenig */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav i {
+  font-size: 30px;
+}

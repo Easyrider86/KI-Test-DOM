@@ -23,21 +23,23 @@ export class SettingsComponent implements OnInit {
   constructor(private settingService: SettingService, private router: Router, private assistantService: AssistantService, private sharedService: SharedService) {
     this.loadSettings();
   }
-  
+
   ngOnInit(): void {
+    //This method gets the current value and sets the opposite value using the shared service.
     this.sharedService.currentBoolean.subscribe(value => this.booleanValue = value);
   }
 
+  //load API Key and Assistant
   async loadSettings(): Promise<void> {
     this.apiKey = this.settingService.loadSetting(ChatGPT_API_KEY);
     try {
       this.assistants = await this.assistantService.getAllAssistans(this.apiKey) as Assistant[]
-    } catch(error) {
+    } catch (error) {
       console.error("401 Incorrect API key provided, please give a validate key");
     }
     this.isDrodropdownDisability();
     this.assistant_id = this.settingService.loadSetting(ASSISTANT_ID_KEY);
-    if(!this.assistant_id || this.assistant_id === "") {
+    if (!this.assistant_id || this.assistant_id === "") {
       this.selectedAssistant = this.assistants[0];
       this.assistant_id = this.selectedAssistant?.id;
     }
@@ -45,27 +47,27 @@ export class SettingsComponent implements OnInit {
       this.selectedAssistant = this.assistants.find(assistant => assistant.id === this.assistant_id);
       console.log(this.selectedAssistant)
     }
-    
+
     if (this.apiKey == "") {
       console.warn("Warnung! Es wurde noch kein API-KEY für den Zugriff auf Chat-GPT gesetzt!");
     }
   }
 
   async saveSettings(): Promise<void> {
-    // Simuliere das Speichern von Daten
-    console.log('Einstellungen werden gespeichert...');
+    // Simulate the storage of data
+    console.log('Settings are saved...');
     let settings: Setting[] = [];
 
-    // Einstellungen zusammen schreiben#
+    // Writing settings together
     settings.push(new Setting(ChatGPT_API_KEY, this.apiKey));
     settings.push(new Setting(ASSISTANT_ID_KEY, this.selectedAssistant?.id));
 
-    // Hier würde der Code zum Speichern der Datei stehen, wenn es sich um eine Desktop-Anwendung handeln würde
+    // Here would be the code to save the file if it were a desktop application
     this.settingService.saveSettings(settings);
   }
 
   routerNavigateBack() {
-    this.router.navigate(['']); 
+    this.router.navigate(['']);
   }
 
   async saveButtonSettings(): Promise<void> {
@@ -73,7 +75,7 @@ export class SettingsComponent implements OnInit {
     this.routerNavigateBack();
   }
 
-  //Check if the Dropdown disabled
+  //Check if the Dropdown is disabled
   isDrodropdownDisability(): void {
     this.isDropdwonDisabled = this.assistants.length === 0 ? true : false;
   }
@@ -87,11 +89,11 @@ export class SettingsComponent implements OnInit {
       this.assistants = [];
     }
     this.isDrodropdownDisability();
-  
+
   }
 
   cancel(newValue: boolean): void {
-    this.router.navigate(['']); // Navigiere zurück zur Hauptseite
+    this.router.navigate(['']); // Navigate back to the main page
     this.sharedService.changeBoolean(newValue);
   }
 

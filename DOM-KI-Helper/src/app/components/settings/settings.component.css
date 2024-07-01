@@ -1,6 +1,6 @@
 .settings-footer {
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 
 .cancel-btn {
@@ -15,7 +15,6 @@
   border-color: red !important;
 }
 
-.margin-left-15{
+.margin-left-15 {
   margin-left: 15px
 }
-

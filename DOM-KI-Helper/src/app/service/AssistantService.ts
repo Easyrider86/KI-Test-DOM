@@ -30,7 +30,7 @@ export class AssistantService {
 
     private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
-        this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
+        this.openai = await new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
     };
 
     /**
@@ -40,32 +40,32 @@ export class AssistantService {
         // TODO: Create assistant we need.
         const myAssistant = await this.openai.beta.assistants.create({
             instructions:
-              "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+                "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
             name: "Math Tutor",
             tools: [{ type: "code_interpreter" }],
             model: "gpt-3.5-turbo",
-          });
-        
-          console.debug('Assistent:', myAssistant);
+        });
+
+        console.debug('Assistent:', myAssistant);
     }
 
     public async deleteAssistant(assistant_id: string) {
         const response = await this.openai.beta.assistants.del(assistant_id);
-  
+
         console.debug(response);
     }
 
     public async getAllAssistans(apiKey: string): Promise<object[]> {
-        if(this.openai === undefined) {
+        if (this.openai === undefined) {
             await this.createAIInstance(apiKey);
         }
         this.openai.apiKey = apiKey;
         const myAssistants = await this.openai.beta.assistants.list({
             order: "desc",
             limit: "10",
-          }).then((response) => {
+        }).then((response) => {
             return response.data
-          });
+        });
         return myAssistants;
     }
 }

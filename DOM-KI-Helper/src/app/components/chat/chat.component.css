@@ -19,7 +19,7 @@ input[type="text"] {
   color: white;
 }
 
-p-button >>> button {
+p-button>>>button {
   color: white !important;
   background-color: red !important;
   border-color: red !important;
@@ -43,8 +43,10 @@ textarea {
 
 .row {
   display: table;
-  width: 100%; /*Optional*/
-  border-spacing: 4px; /*Optional*/
+  width: 100%;
+  /*Optional*/
+  border-spacing: 4px;
+  /*Optional*/
 }
 
 .column {
@@ -55,9 +57,11 @@ textarea {
 }
 
 .sidebar {
-  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
-  
+  display: -webkit-flex;
+  /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;
+  /* NEW, Spec - Firefox, Chrome, Opera */
+
   justify-content: left;
   align-items: center;
 

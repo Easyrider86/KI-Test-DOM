@@ -1,4 +1,9 @@
 <div>
-    <textarea id="chatBox" class="inputBackground" readonly rows="10" [innerHTML]="chatContent" #textarea [scrollTop]="textarea.scrollHeight">
+    <div *ngIf="isLoading">
+        <p-progressSpinner class="progress-spinner" styleClass="w-2rem h-2rem" strokeWidth="4"
+            fill="var(--surface-ground)" animationDuration=".8s" />
+    </div>
+    <textarea id="chatBox" class="inputBackground" readonly rows="10" [innerHTML]="chatContent" #textarea
+        [scrollTop]="textarea.scrollHeight">
     </textarea>
 </div>

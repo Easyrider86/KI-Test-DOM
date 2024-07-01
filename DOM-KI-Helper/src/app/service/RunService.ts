@@ -19,7 +19,7 @@ export class RunService {
 
     private async createAIInstance(apiKey: string) {
         const key = this.settingService.loadSetting(ChatGPT_API_KEY);
-        this.openai = await new OpenAI({apiKey: apiKey, dangerouslyAllowBrowser: true});
+        this.openai = await new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
     };
 
     /**
@@ -28,11 +28,11 @@ export class RunService {
      * @param threadId 
      * @returns messages of a thread
      */
-    public async getThreadMessages(threadId: string) : Promise<any> {
+    public async getThreadMessages(threadId: string): Promise<any> {
 
         const messages = await this.openai.beta.threads.messages.list(
             threadId,
-            {limit: 80}
+            { limit: 80 }
         );
 
         return messages.data.reverse();
@@ -45,30 +45,30 @@ export class RunService {
      * @param message message to send
      * @returns result messsage of the server
      */
-    public async startRun(thread_id: string, message: string) : Promise<string> {
+    public async startRun(thread_id: string, message: string): Promise<string> {
         this.cancelled = false;
         // Create message
         console.debug('Create message');
         const threadMessages = await this.openai.beta.threads.messages.create(
             thread_id,
-            { 
+            {
                 role: "user",
                 content: message
             }
         );
-    
+
         // Create run
         console.debug('Create run');
         let run = await this.openai.beta.threads.runs.create(
             thread_id,
-            { 
+            {
                 assistant_id: this.settingService.loadSetting(ASSISTANT_ID_KEY)
             }
         );
-    
+
         // Get run when completed
         // TODO: Search for a better solution or wait for openai update.
-        while(run.status != 'completed') {
+        while (run.status != 'completed') {
             await this.sleep(500);
             if (this.cancelled) {
                 console.debug("Run canceled")
@@ -83,19 +83,19 @@ export class RunService {
 
         if (run.status === 'completed') {
             const messages = await this.openai.beta.threads.messages.list(
-              run.thread_id
+                run.thread_id
             );
             return messages.data[0].content[0].text.value;
-          } else {
+        } else {
             console.debug(run.status);
             return 'No answer';
-          }
+        }
     }
 
     public async cancelRun() {
         this.cancelled = true;
     }
-    
+
     private sleep(milliseconds: number) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
