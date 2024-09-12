@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
+COPY ./src/app/api-key /usr/src/assets/api-keys
+
 RUN npm install -g @angular/cli
 
 RUN npm install
